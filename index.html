@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis y Diseño de un Sistema</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&family=Nunito:wght@400;700&family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -5px;
+            display: none;
+        }
+
+        .dropdown-submenu:hover .dropdown-menu {
+            display: block;
+        }
+        .nav-link{
+            color: white;
+        }
+        .navbar-nav .dropdown:hover > .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+        .dropdown-menu .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+        section {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f5f5dc;
+            border-radius: 8px;
+        }
+
+        body {
+            padding-top: 80px;
+            background-color: #f5f5dc; 
+        }
+        .nav-link {
+            color: #fff; 
+        }
+        .navbar {
+            background-color: #8e0000; 
+        }
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #8e0000;
+        }
+        h3, h4 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            color: #444; 
+        }
+        p, a, button {
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            color: #666; 
+        }
+        h1.special, .highlight {
+            font-family: 'Pacifico', cursive;
+            color: #8e0000; 
+        }
+
+        .carousel-item {
+            background-color: #f5f5dc;
+        }
+        .btn-primary {
+            background-color: #8e0000;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #b30000; 
+        }
+        
+        .container {
+            margin-top: 50px;
+        }
+
+        .highlight {
+            font-family: 'Montserrat', sans-serif;
+            color: #8e0000;
+        }
+        
+        .carousel-item img {
+            filter: brightness(85%);
+        }
+         .carousel-item img {
+        transition: transform 0.5s ease-in-out, filter 0.3s ease-in-out;
+        border-radius: 10px; 
+        }
+
+        .carousel-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(100%);
+        }
+
+        .carousel-caption h5 {
+            font-size: 32px;
+            font-family: 'Georgia', serif;
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-caption p {
+            font-size: 20px;
+            font-family: 'Verdana', sans-serif;
+            color: #ffffff;
+            line-height: 1.5;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+
+        document.querySelectorAll('a.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href').substring(1); 
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    e.preventDefault(); 
+                    const targetPosition = targetElement.offsetTop - navbarHeight; 
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth' 
+                    });
+                }
+            });
+        });
+    });
+
+    </script>
+
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#inicio">
+                <img src="img/yumara.jpg" alt="Logo Yumara" style="width: 200px; height: 80px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#inicio" style="font-size: 20px;">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#marco_teorico" style="font-size: 20px;">Marco Teórico</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="analisisDropdown" role="button" data-bs-toggle="dropdown" style="font-size: 20px;">Análisis Estructurado</a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#analisis_estructurado" style="font-size: 20px;">Modelo Escencial</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#modelo_ambiental" style="font-size: 20px;">Modelo Ambiental</a></li>
+                                    <li><a class="dropdown-item" href="#modelo_comportamiento" style="font-size: 20px;">Modelo de Comportamiento</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+
+            <!-- Sección de Inicio -->             
+            <section class="section-content" id="inicio">
+              <h1 class="text-center mb-4" style="font-size: 50px; font-family: 'Georgia', serif; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; background: linear-gradient(135deg, #e74c3c, #95a5a6); color: transparent; background-clip: text; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); animation: fadeIn 2s ease-in-out;">
+                    Sistema de gestion y ventas 
+                </h1>
+                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="border-radius: 15px; overflow: hidden;">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <!-- Slide 1 -->
+                        <div class="carousel-item active" data-bs-interval="5000" style="position: relative;">
+                            <img src="img/yumara1.jpg" class="d-block w-100" alt="Supermercado 1" style="filter: brightness(85%); transition: filter 0.3s ease-in-out;">
+                            <div class="carousel-caption d-none d-md-block" style="position: absolute; bottom: 30px; left: 20px; right: 20px; text-align: center;">
+                                <h5 style="font-size: 32px; font-family: 'Georgia', serif; color: #ffffff; font-weight: bold; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+                                    Gestión Integral de Ventas
+                                </h5>
+                                <p style="font-size: 20px; font-family: 'Verdana', sans-serif; color: #ffffff; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);">
+                                    Optimiza cada transacción con un sistema diseñado para garantizar rapidez y precisión en la gestión de ventas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="carousel-item" data-bs-interval="5000" style="position: relative;">
+                            <img src="img/yumara2.jpg" class="d-block w-100" alt="Supermercado 2" style="filter: brightness(85%); transition: filter 0.3s ease-in-out;">
+                            <div class="carousel-caption d-none d-md-block" style="position: absolute; bottom: 30px; left: 20px; right: 20px; text-align: center;">
+                                <h5 style="font-size: 32px; font-family: 'Georgia', serif; color: #ffffff; font-weight: bold; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+                                    Control de Inventarios Eficiente
+                                </h5>
+                                <p style="font-size: 20px; font-family: 'Verdana', sans-serif; color: #ffffff; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);">
+                                    Mantén el control absoluto de tu inventario con actualizaciones automáticas y alertas de reabastecimiento.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev" style="z-index: 10;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next" style="z-index: 10;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
+            
+             <!-- Sección de Marco Teórico -->
+            <section id="marco_teorico">
+                <div class="container">
+                    <h2 class="text-center mb-4">Marco Teórico</h2>
+
+                    <h3>Descripción General del Proyecto</h3>
+                    <p>
+                        El proyecto busca desarrollar un sistema de análisis y diseño para la administración y gestión de ventas
+                        del supermercado Yumara, ubicado en La Paz, Bolivia. Este sistema tiene como propósito mejorar la eficiencia
+                        en el manejo de inventarios y las ventas, optimizando las operaciones en sus
+                        sucursales.
+                    </p>
+
+                    <h3>Análisis Estructurado</h3>
+                    <p>
+                        El análisis estructurado del sistema permite descomponer las funciones clave del supermercado Yumara para
+                        identificar los procesos principales y garantizar que cada uno sea implementado adecuadamente. Este enfoque
+                        utiliza dos modelos principales: el modelo ambiental y el modelo de comportamiento.
+                    </p>
+
+                    <h4>Modelo Esencial</h4>
+
+                    <h5>Modelo Ambiental</h5>
+                    <ul>
+                        <li><strong>Declaración de Propósitos (DP):</strong> Define los objetivos principales del sistema, como la optimización del control de inventarios,
+                            la gestión de ventas, y la relación con proveedores.
+                        </li>
+                        <li><strong>Lista de Acontecimientos (LA):</strong> Identifica los eventos clave del sistema, como ventas realizadas, actualizaciones de inventario,
+                            y órdenes de compra a proveedores.
+                        </li>
+                        <li><strong>Diagrama de Contexto (DC):</strong> Representa las interacciones principales entre el sistema y los actores externos, como clientes,
+                            administradores y proveedores.
+                        </li>
+                    </ul>
+
+                    <h5>Modelo de Comportamiento</h5>
+                    <ul>
+                        <li><strong>Diagrama de Flujo de Datos (DFD):</strong> Muestra cómo la información fluye entre los diferentes procesos del sistema, como ventas,
+                            actualizaciones de inventarios y generación de reportes.
+                        </li>
+                        <li><strong>Diagrama Entidad/Relación (DER):</strong> Define las relaciones entre las entidades clave del sistema, como productos, clientes y proveedores.
+                        </li>
+                        <li><strong>Diagrama de Datos (DD):</strong> Detalla los datos utilizados y producidos por el sistema, como registros de ventas, catálogos de productos,
+                            y órdenes de compra.
+                        </li>
+                        <li><strong>Diagrama de Transacciones (DTS):</strong> Representa las transacciones principales del sistema, como la venta de productos, actualizaciones
+                            de inventarios y pedidos a proveedores.
+                        </li>
+                    </ul>
+
+                    <h3>Alcance y Objetivos</h3>
+                    <p>
+                        Este proyecto tiene como alcance implementar un sistema que abarque la gestión de ventas, el control de
+                        inventarios y la administración de proveedores, asegurando un flujo continuo de productos en las sucursales
+                        y mejorando la experiencia tanto de los clientes como de los administradores del supermercado Yumara.
+                    </p>
+
+                    <h3>Información del Supermercado Yumara</h3>
+                    <p>
+                        Yumara, ubicado en Av. Arce NRO 2519 Condominio Torres del Poeta, La Paz, Bolivia, cuenta con 11 sucursales
+                        en la ciudad. Ofrece una amplia variedad de productos en categorías como alimentos, bebidas, productos de limpieza
+                        y artículos de hogar, atendiendo a más de 5,000 clientes registrados.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Sección de Análisis Estructurado -->
+            <section id="analisis_estructurado">
+                <br><br><br>
+                <h1 class="text-center mb-4">Modelo  esencial para el supermercado Yumara<br></h1>
+            </header>
+            
+            <main>
+
+                    <h2>¿Qué es el Análisis Estructurado?</h2>
+                    <p>El análisis estructurado es una metodología que permite descomponer sistemas complejos en partes simples y organizadas, facilitando su diseño y documentación. Su enfoque principal es garantizar que los procesos y datos sean consistentes y estén alineados con los objetivos del sistema.</p>
+
+        
+                <section id="modelo-ambiental">
+                    <h2>Modelo Ambiental</h2>
+                    <p>El modelo ambiental define el alcance del sistema y su interacción con los agentes externos. Incluye los objetivos clave, los eventos principales que activan procesos y las relaciones con otras entidades.</p>
+                    <ul>
+                        <li><strong>Declaración de Propósitos (DP):</strong> Este modelo tiene como objetivo garantizar una gestión eficiente del inventario, procesar ventas con rapidez y mantener un registro actualizado de clientes y proveedores.</li>
+                        <li><strong>Lista de Acontecimientos (LA):</strong> Los eventos incluyen:
+                            <ul>
+                                <li>Registro de nuevos productos en el inventario.</li>
+                                <li>Actualización de cantidades en stock después de cada venta.</li>
+                                <li>Generación de reportes mensuales de ventas y stock.</li>
+                                <li>Notificación automática al administrador sobre niveles bajos de inventario.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Diagrama de Contexto (DC):</strong> 
+                            <p>Representa cómo el sistema interactúa con los agentes externos. Los principales actores son:</p>
+                            <ul>
+                                <li><strong>Clientes:</strong> Realizan compras y reciben comprobantes de pago.</li>
+                                <li><strong>Administradores:</strong> Gestionan el inventario y supervisan las ventas.</li>
+                                <li><strong>Proveedores:</strong> Suministran productos al sistema.</li>
+                                <li><strong>Sistema de Inventario:</strong> Registra y actualiza el stock en tiempo real.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+        
+                <section id="modelo-comportamiento">
+                    <h2>Modelo de Comportamiento</h2>
+                    <p>El modelo de comportamiento describe los flujos internos del sistema, las relaciones entre las entidades principales y los datos que se procesan durante la operación del supermercado.</p>
+                    <ul>
+                        <li><strong>Diagrama de Flujo de Datos (DFD):</strong> Representa cómo la información fluye entre los procesos del sistema.</li>
+                        <li><strong>Diagrama Entidad/Relación (DER):</strong> Describe las conexiones entre las entidades principales: Productos, Clientes, Administradores y Proveedores.</li>
+                        <li><strong>Diagrama de Datos (DD):</strong> Detalla la estructura de los datos, como ID de productos, categorías y niveles de inventario.</li>
+                        <li><strong>Diagrama de Transacciones (DTS):</strong> Muestra los procesos clave, como agregar productos al inventario y registrar ventas.</li>
+                    </ul>
+                </section>
+        
+            </section>
+
+            <!-- Sección de Modelo Ambiental -->
+            <section id="modelo_ambiental">
+                <br><br><br>
+
+                <br><h1 class="text-center mb-4">Modelo Ambiental para nuestro sistema</h1>
+            
+                <br><h3>a) DECLARACIÓN DE PROPÓSITOS: </h3>
+            
+                <p>El sistema tiene como objetivo principal gestionar las operaciones de venta y el control de inventarios en el supermercado Yumara. Esto incluye la administración de productos, precios, existencias, compras de clientes, proveedores, ofertas y reportes de ventas. Además, permite mejorar la experiencia del cliente, optimizar los procesos internos y asegurar la disponibilidad de productos.</p>
+                <h3>b) LISTA DE ACONTECIMIENTOS: </h3>
+                    
+                <p>Eventos relacionados con las ventas:</p>
+                <ol>
+                    <li>Un cliente selecciona productos para comprar.</li>
+                    <li>Un cliente realiza el pago en caja.</li>
+                    <li>Se genera un comprobante de venta.</li>
+                    <li>Se realiza una devolución de producto por parte del cliente.</li>
+                </ol>
+                
+                <p>Eventos relacionados con la gestión de inventarios:</p>
+            
+                <ol>
+                    <li>El inventario de un producto disminuye tras la venta.
+                    <li>Un empleado actualiza las existencias de un producto.
+                    <li>Se realiza el ingreso de un nuevo producto al sistema.
+                    <li>Se detecta un producto con stock mínimo y se notifica al proveedor.
+                </ol>
+                    
+                <p>Eventos relacionados con proveedores:</p>
+                <ol>
+                    <li>Se realiza un pedido de reposición de productos a un proveedor.</li>
+                    <li>Se registra la recepción de un pedido de un proveedor.</li>
+                </ol>
+                
+                <p>Eventos relacionados con ofertas y promociones:</p>
+                <ol>
+                    <li>Un administrador define una oferta o descuento para un producto.</li>
+                </ol>
+            
+                <h3>Diagrama de Contexto</h3>
+                <div class="text-center mb-4">
+                    <img src="img/diagrama_yumara.png" alt="Diagrama Contexto" style="max-width: 2000px; height: 1000px; border: 5px solid #8e0000; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3)">
+                    <p style="font-size: 18px; font-weight: bold; color: #8e0000; margin-top: 10px;">Diagrama de Contexto del Sistema</p>
+                </div>
+            
+                
+            </section>
+
+            <!-- Sección de Modelo de Comportamiento -->
+            <section id="modelo_comportamiento">
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
